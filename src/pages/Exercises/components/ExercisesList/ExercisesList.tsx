@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { ExercisesListItem } from "../ExercisesListItem/ExercisesListItem";
 import styled from "@emotion/styled";
-import { Select } from "~/components/Select/Select";
+import { Option, Select } from "~/components/Select/Select";
 
 const StyledList = styled("ol")`
   list-style: none;
@@ -331,6 +331,8 @@ export const ExercisesList: FC = () => {
     }))
   );
 
+  const [selectedValues, setSelectedValues] = useState<Option[]>([]);
+
   const [result, setResult] = useState<Result | null>(null);
 
   const setAnswer = ({
@@ -358,7 +360,14 @@ export const ExercisesList: FC = () => {
         </article>
       )}
 
-      <Select />
+      <Select
+        onChange={setSelectedValues}
+        options={[
+          { label: "Past continous", value: "past-continous" },
+          { label: "Present continous", value: "present-continous" },
+        ]}
+        values={selectedValues}
+      />
 
       <form
         onSubmit={(e) => {
